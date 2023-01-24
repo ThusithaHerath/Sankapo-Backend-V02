@@ -82,7 +82,7 @@ class ProductsController extends Controller
         //status = 1 approved ads
         //status = 2 declined ads
         $Products = Products::get()->all();
-        if ($ads) {
+        if ($Products) {
             return response()->json([
                 'data' => $Products,
             ], 200);

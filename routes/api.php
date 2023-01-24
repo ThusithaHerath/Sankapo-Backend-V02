@@ -79,6 +79,7 @@ Route::prefix('negotiation')->group(function () {
 //admin 
 Route::prefix('admin')->group(function () {
 	Route::post('signup', 'App\Http\Controllers\AdminController@signup')->name('admin.signup');
+	Route::post('signin', 'App\Http\Controllers\AdminController@signin')->name('admin.signin');
 	Route::get('showall', 'App\Http\Controllers\AdminController@showAll')->name('admin.showall');
 	Route::get('admin/{id}', 'App\Http\Controllers\AdminController@admin')->name('admin.admin');
 	Route::post('update/{id}', 'App\Http\Controllers\AdminController@update')->name('admin.update');
