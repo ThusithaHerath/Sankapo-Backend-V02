@@ -30,7 +30,8 @@ class PropertyController extends Controller
             'security' => 'required',
             'mobile' => 'required',
             'landline' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'sellerName' => 'required'
         ]);
 
         if ($validated) {
@@ -51,6 +52,7 @@ class PropertyController extends Controller
             $data->restroom = $request->input('restroom');
             $data->room_arrangement = $request->input('room_arrangement');
             $data->owner =$request->input('owner');
+            $data->sellerName =$request->input('sellerName'); 
             $data->mobile = $request->input('mobile');  
             $data->landline = $request->input('landline');  
             $data->email = $request->input('email');  
@@ -213,6 +215,7 @@ class PropertyController extends Controller
             $data->restroom = $request->input('restroom');
             $data->room_arrangement = $request->input('room_arrangement');
             $data->owner =$request->input('owner'); 
+            $data->sellerName =$request->input('sellerName'); 
             $data->mobile = $request->input('mobile');  
             $data->landline = $request->input('landline');  
             $data->email = $request->input('email'); 

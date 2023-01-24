@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('landline');
             $table->string('email');
+            $table->string('sellerName');
             $table->string('isApprove')->default('0');
             $table->integer('owner')->index()->unsigned();
             $table->timestamps();

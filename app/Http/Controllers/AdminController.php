@@ -39,6 +39,31 @@ class AdminController extends Controller
     }
    }
 
+   public function signin(Request $request){
+		$validator = $request->validate([
+			'email' => 'required|email',
+			'password' => 'required',
+		]);
+
+		$admin = Admin::where('email', $request->email)->first();
+
+		if ($admin) {
+			if (Hash::check($request->password, $admin->password)) {
+				return view('admin-template.home');
+			} else {
+				return response()->json([
+					'message' => 'Incorrect Password!',
+				], 403);
+			}
+		} else {
+			return response()->json([
+				'user' => $user,
+				'message' => 'Admin not found!',
+			], 401);
+		}
+
+   }
+
    public function showAll(){
 
     $admins = Admin::all();
