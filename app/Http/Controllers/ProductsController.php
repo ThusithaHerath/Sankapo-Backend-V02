@@ -47,23 +47,18 @@ class ProductsController extends Controller
                 $randomString = Str::random(5);
                 $insertId = $randomString . '' . $request->input('title');
                 $imagename = $insertId . '.' . $imagefile->getClientOriginalExtension();
-                // $img = Image::make($imagefile->getRealPath());
-                // $imageWidth = $img->width();
-                // $watermarkSource =  Image::make(public_path('common/watermark.png'));
 
-                // $watermarkSize = round(20 * $imageWidth / 50);
-                // $watermarkSource->resize($watermarkSize, null, function ($constraint) {
-                //     $constraint->aspectRatio();
-                // });
+                $imgFile = Image::make($imagefile->getRealPath());
+                $imgFile->text('© 2023 Sankapo.com - All Rights Reserved', 260, 100, function ($font) {
+                    $font->file('font/Lato-Semibold.ttf');
+                    $font->size(20);
+                    $font->color('#ffffff');
+                    $font->align('center');
+                    $font->valign('center');
+                    $font->angle(0);
+                })->save(public_path('/uploads/products') . '/' . $imagename);
 
-                // $img->insert($watermarkSource, 'center', 0, 0);
-
-                
-                // $img->resize(500, 500, function ($const) {
-                //     $const->aspectRatio();
-                // })->save(public_path('/uploads/products') . '/' . $imagename);
-
-                $imagefile->move('uploads/products', $imagename);
+                // $imagefile->move('uploads/products', $imagename);
                 array_push($imageArray, $imagename);
             }
 
@@ -202,5 +197,4 @@ class ProductsController extends Controller
             'message' => 'Search by category ads fetched successfully!',
         ], 200);
     }
-
 }
