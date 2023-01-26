@@ -106,10 +106,12 @@ class AdminController extends Controller
         $admin->name = $request->input('name');
         $admin->save();
 
-        return response()->json([
-            'data'=>  Admin::find($id),
-            'message' => 'Selected admin details updated successfully',
-        ], 200);  
+        return redirect()->back();
+
+        // return response()->json([
+        //     'data'=>  Admin::find($id),
+        //     'message' => 'Selected admin details updated successfully',
+        // ], 200);  
     }else{
         return response()->json([
             'message' => 'No record found for this id',

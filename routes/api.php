@@ -40,6 +40,7 @@ Route::prefix('product')->group(function () {
 	Route::get('search/{id}', 'App\Http\Controllers\ProductsController@search')->name('product.search');
 	Route::get('latest', 'App\Http\Controllers\ProductsController@latestAds')->name('product.latest');
 	Route::get('searchbycat/{id}', 'App\Http\Controllers\ProductsController@searchbycat')->name('product.searchbycat');
+	Route::get('searchby/{id}/{title}', 'App\Http\Controllers\ProductsController@searchby')->name('product.searchby');
 });
 
 // property

@@ -24,10 +24,12 @@ class CategoryController extends Controller
 
             $category->save();
 
-            return response()->json([
-                'message' => 'New category has been addedd successfully!',
-                'data' => $category
-            ], 200);
+            return redirect()->back();
+
+            // return response()->json([
+            //     'message' => 'New category has been addedd successfully!',
+            //     'data' => $category
+            // ], 200);
         }
     }
 

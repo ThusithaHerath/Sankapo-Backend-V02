@@ -48,6 +48,7 @@ class ProductsController extends Controller
                 $insertId = $randomString . '' . $request->input('title');
                 $imagename = $insertId . '.' . $imagefile->getClientOriginalExtension();
 
+                $path = public_path('uploads/products/');
                 $imgFile = Image::make($imagefile->getRealPath());
                 $imgFile->text('© 2023 Sankapo.com - All Rights Reserved', 260, 100, function ($font) {
                     $font->file('font/Lato-Semibold.ttf');
@@ -56,7 +57,7 @@ class ProductsController extends Controller
                     $font->align('center');
                     $font->valign('center');
                     $font->angle(0);
-                })->save(public_path('/uploads/products') . '/' . $imagename);
+                })->save( $path. '/' . $imagename);
 
                 // $imagefile->move('uploads/products', $imagename);
                 array_push($imageArray, $imagename);
@@ -134,10 +135,7 @@ class ProductsController extends Controller
             $Product->isApprove = '1';
             $Product->update();
 
-            return response()->json([
-                'data' => $Product,
-                'message' => 'Ad has been approved successfully!',
-            ], 200);
+            return redirect()->back();
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
@@ -154,10 +152,7 @@ class ProductsController extends Controller
 
             $Product->update();
 
-            return response()->json([
-                'data' => $Product,
-                'message' => 'Ad has been declined successfully!',
-            ], 200);
+            return redirect()->back();
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
@@ -197,4 +192,15 @@ class ProductsController extends Controller
             'message' => 'Search by category ads fetched successfully!',
         ], 200);
     }
+    public function searchby(Request $request, $id, $title)
+    {
+        // dd($request);
+        $results = DB::table('products')->where('category', $id)->where('title', $title)->get();
+        return response()->json([
+            'data' => $results,
+            'message' => 'Search by category and title data fetched successfully!',
+        ], 200);
+    }
+
+
 }

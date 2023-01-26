@@ -22,4 +22,3 @@
     <link rel="stylesheet" type="text/css" href="{{url('assets/css/style.css')}}">
     <link id="color" rel="stylesheet" href="{{url('assets/css/color-1.css')}}" media="screen">
     <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="{{url('assets/css/responsive.css')}}">

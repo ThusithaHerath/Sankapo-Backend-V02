@@ -65,7 +65,7 @@ class PropertyController extends Controller
                 $randomString = Str::random(5);
                 $insertId = $randomString .''. $request->input('title');
                 $imagename = $insertId . '.' . $imagefile->getClientOriginalExtension();
-                $imagefile->move('uploads/images', $imagename);
+                $imagefile->move('uploads/properties', $imagename);
                 array_push($imageArray, $imagename);
             }
 
@@ -136,10 +136,9 @@ class PropertyController extends Controller
 
             $property->update();
 
-            return response()->json([
-                'data' => $property,
-                'message' => 'property approved successfully!',
-            ], 200);
+            return redirect()->back();
+
+          
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
@@ -158,10 +157,8 @@ class PropertyController extends Controller
 
             $property->update();
 
-            return response()->json([
-                'data' => $property,
-                'message' => 'property declined successfully!',
-            ], 200);
+            return redirect()->back();
+           
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
