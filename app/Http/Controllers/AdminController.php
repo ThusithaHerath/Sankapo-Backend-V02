@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -28,6 +29,7 @@ class AdminController extends Controller
             $admin->name = $request->input('name');
             $admin->save();
 
+            // return redirect()->back();
             return response()->json([
                 'message' => 'New admin has been added!',
             ], 200);
@@ -46,10 +48,18 @@ class AdminController extends Controller
 		]);
 
 		$admin = Admin::where('email', $request->email)->first();
+        $admin_id = $admin->id;
 
 		if ($admin) {
 			if (Hash::check($request->password, $admin->password)) {
-				return view('admin-template.home');
+                $random_token = Str::random(64);
+                $data  = Admin::find($admin_id);
+                $data->token = '1';
+                $data->update();
+				
+                $this->middleware('AdminAuth:admin_id');
+
+                return redirect()->away("http://127.0.0.1:8000/home");
 			} else {
 				return response()->json([
 					'message' => 'Incorrect Password!',
@@ -57,7 +67,7 @@ class AdminController extends Controller
 			}
 		} else {
 			return response()->json([
-				'user' => $user,
+				'user' => $admin,
 				'message' => 'Admin not found!',
 			], 401);
 		}

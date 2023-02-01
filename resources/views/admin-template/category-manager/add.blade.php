@@ -20,6 +20,9 @@
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
         <div class="page-body-wrapper">
             <div class="page-body">
+              @if(session('status'))
+              <h5 class="alert alert-success">{{session('status')}}</h5>
+              @endif
                 <div class="container-fluid">
                     <div class="row">
                       <div class="col-md-12">

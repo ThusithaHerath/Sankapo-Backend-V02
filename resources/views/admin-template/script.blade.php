@@ -29,7 +29,6 @@
  <script src="{{url('assets/js/typeahead/typeahead.custom.js')}}"></script>
  <script src="{{url('assets/js/typeahead-search/handlebars.js')}}"></script>
  <script src="{{url('assets/js/typeahead-search/typeahead-custom.js')}}"></script>
- <script src="{{url('assets/js/sidebar-menu.js')}}"></script>
  <script src="{{url('assets/js/form-wizard/form-wizard.js')}}"></script>
  <script src="{{url('assets/js/tooltip-init.js')}}"></script>
 

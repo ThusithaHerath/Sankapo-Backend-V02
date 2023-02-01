@@ -24,7 +24,7 @@ class CategoryController extends Controller
 
             $category->save();
 
-            return redirect()->back();
+            return redirect()->back()->with('status','New category has been added successfully!');
 
             // return response()->json([
             //     'message' => 'New category has been addedd successfully!',

@@ -21,6 +21,12 @@
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
         <div class="page-body-wrapper">
            <div class="page-body">
+            @if(session('approved'))
+            <h5 class="alert alert-success">{{session('approved')}}</h5>
+            @endif
+            @if(session('declined'))
+            <h5 class="alert alert-danger">{{session('declined')}}</h5>
+            @endif
             <section style="background-color: #eee;">
               <div class="container py-5">
                 <div class="row justify-content-center mb-3">
@@ -72,8 +78,9 @@
                             </div>
                             {{-- <h6 class="text-success">Free shipping</h6> --}}
                             <div class="d-flex flex-column mt-4">
-                             <a class="btn btn-primary btn-lg" type="submit"  href="{{url('approve-product/'.$data->id)}}">Approve</a>
-                             <a class="btn btn-outline-danger btn-lg mt-2" type="submit" href="{{url('decline-product/'.$data->id)}}">Decline</a>
+                             <a class="btn btn-success btn-lg" type="submit"  href="{{url('approve-product/'.$data->id)}}">Approve</a>
+                             <a class="btn btn-danger btn-lg mt-2" type="submit" href="{{url('decline-product/'.$data->id)}}">Decline</a>
+                             <a class="btn btn-warning btn-lg mt-2" type="submit" href="{{url('http://127.0.0.1:8000/products')}}">Back</a>
                             </div>
                           </div>
                         </div>

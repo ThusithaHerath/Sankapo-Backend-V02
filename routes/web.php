@@ -5,12 +5,12 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ActionController;
 
 
-Route::get('/login', function () {return view('admin-template.auth.login');});
-Route::get('/', function () {return view('admin-template.home');});
+Route::get('/', function () {return view('admin-template.auth.login');});
+Route::get('/home', [PageController::class,'home']);
 
 //ad manager
 //products
-Route::get('/products',[PageController::class,'productsIndex']);
+Route::get('/products',[PageController::class,'productsIndex'])->middleware('AdminAuth');
 Route::get('/view-product/{id}',[PageController::class,'viewProduct']);
 Route::get('/approve-product/{id}',[ActionController::class,'approveProduct']);
 Route::get('/decline-product/{id}',[ActionController::class,'declineProduct']);
@@ -34,5 +34,6 @@ Route::get('/users',[PageController::class,'users']);
 Route::get('/admin-users',[PageController::class,'adminUsers']);
 Route::get('/remove-admin/{id}',[ActionController::class,'removeAdmin']);
 Route::get('/edit-admin/{id}',[PageController::class,'editAdmin']);
+Route::get('/add-new-admin',[PageController::class,'addAdmin']);
 
 Route::get('/resetpassword', function () {return view('resetPasswords.resetPassword');});

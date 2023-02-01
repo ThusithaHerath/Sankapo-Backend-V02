@@ -1,15 +1,12 @@
-<div class="sidebar-wrapper">
+ <div class="sidebar-wrapper">
     <div>
       <div class="logo-wrapper"><a href="{{url('/')}}"><img class="img-fluid for-light" src="{{url('assets/images/logo/logo-sankapo.png')}}" height="20%" alt=""><img class="img-fluid for-dark" src="{{url('assets/images/logo/logo-sankapo.png')}}" alt=""></a>
         <div class="back-btn"><i class="fa fa-angle-left"></i></div>
-        {{-- <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div> --}}
       </div>
-      {{-- <div class="logo-icon-wrapper"><a href="{{url('/home')}}"><img class="img-fluid" src="{{url('assets/images/logo/logo-sankapo.png')}}" alt=""></a></div> --}}
       <nav class="sidebar-main">
         <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
         <div id="sidebar-menu">
           <ul class="sidebar-links" id="simple-bar">
-            {{-- <li class="back-btn"><a href="{{url('/home')}}"><img class="img-fluid" src="{{url('assets/images/logo/logo-sankapo.png')}}" alt=""></a> --}}
               <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
             </li>
 
@@ -50,4 +47,4 @@
         <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
       </nav>
     </div>
-  </div>
+  </div> 

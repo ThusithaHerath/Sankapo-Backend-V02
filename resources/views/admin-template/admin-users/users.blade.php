@@ -22,6 +22,9 @@
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
         <div class="page-body-wrapper">
             <div class="page-body">
+                @if(session('removed'))
+                <h5 class="alert alert-success">{{session('removed')}}</h5>
+                @endif
                 <div class="container-fluid">
                     <div class="col-sm-12">
                         <div class="card">

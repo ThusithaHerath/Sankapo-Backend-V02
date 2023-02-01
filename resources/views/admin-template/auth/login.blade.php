@@ -41,7 +41,7 @@
             <div>
               <div><a class="logo" href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo-sankapo.png" alt="looginpage"><img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png" alt="looginpage"></a></div>
               <div class="login-main"> 
-                <form class="theme-form" method="POST" action="{{ route('admin.signin') }}">
+                <form class="theme-form" method="POST" action="{{url('http://127.0.0.1:8000/api/admin/signin')}}">
                    @csrf
                   <h4>Sign in to account</h4>
                   <p>Enter your email & password to login</p>
@@ -52,7 +52,7 @@
                   <div class="form-group">
                     <label class="col-form-label">Password</label>
                     <div class="form-input position-relative">
-                      <input class="form-control" type="password" name="password" required="" placeholder="*********">
+                      <input class="form-control" type="password" name="password" required="">
                       <div class="show-hide"><span class="show">                         </span></div>
                     </div>
                   </div>

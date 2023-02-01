@@ -27,6 +27,17 @@ class PageController extends Controller
         $data = Property::find($id);
         return view('admin-template.ad-manager.view-property',compact('data'));
     }
+    public function home(){
+       $users = User::count(); 
+       $categories = Category::count(); 
+       $products = Products::count(); 
+       $properties = Property::count(); 
+       $approvedProducts =  Products::where('isApprove','1')->get()->count();
+       $newProducts = Products::where('isApprove','0')->get()->count();
+       $approvedProperties = Property::where('isApprove','1')->get()->count(); 
+       $newProperties = Property::where('isApprove','0')->get()->count();
+       return view('admin-template.home',compact('users','categories','products','properties','approvedProducts','newProducts','approvedProperties','newProperties'));
+    }
 
     //category 
     public function addCategory(){
@@ -54,6 +65,9 @@ class PageController extends Controller
         $data = Admin::find($id);
         // $password = Crypt::decryptString($data->password);
         return view('admin-template.admin-users.edit',compact('data'));
+    }
+    public function addAdmin(){
+        return view('admin-template.admin-users.add');
     }
     
 }

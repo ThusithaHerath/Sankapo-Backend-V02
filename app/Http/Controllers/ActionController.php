@@ -17,7 +17,7 @@ class ActionController extends Controller
             $Product->isApprove = '1';
             $Product->update();
 
-            return redirect()->back();
+            return redirect()->back()->with('approved','Product has been approved successfully!');
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
@@ -34,7 +34,7 @@ class ActionController extends Controller
 
             $Product->update();
 
-            return redirect()->back();
+            return redirect()->back()->with('declined','Product has been declined successfully!');
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
@@ -50,7 +50,7 @@ class ActionController extends Controller
             $Property->isApprove = '1';
             $Property->update();
 
-            return redirect()->back();
+            return redirect()->back()->with('approved','Property has been approved successfully!');
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
@@ -67,7 +67,7 @@ class ActionController extends Controller
 
             $Property->update();
 
-            return redirect()->back();
+            return redirect()->back()->with('declined','Property has been declined successfully!');
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
@@ -83,7 +83,7 @@ class ActionController extends Controller
         unlink($icon_path);
         $data->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('removed','Category removed successfully!');
     }
 
 
@@ -93,7 +93,7 @@ class ActionController extends Controller
             $admin = Admin::find($id);
             $admin->delete();
            
-            return redirect()->back();
+            return redirect()->back()->with('removed','Admin removed successfully!');
         } else {
             return response()->json([
                 'message' => 'There is no record for this id',
