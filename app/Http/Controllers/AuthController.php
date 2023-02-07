@@ -6,33 +6,35 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Mail\VerifyEmail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use App\Models\UserVerify; 
+use App\Models\UserVerify;
 use App\Models\PasswordResets;
 use Mail;
 
 class AuthController extends Controller
 {
-    public function signup(Request $request){
+	public function signup(Request $request)
+	{
 
-        if (User::where('email', '=', $request->input('email'))->exists()) {
+		if (User::where('email', '=', $request->input('email'))->exists()) {
 			return response()->json([
 				'message' => 'Sorry, User with the provided email is already exists!',
 			], 403);
-		}else{
-            $validated = $request->validate([
+		} else {
+			$validated = $request->validate([
 				'password' => 'required|min:8|max:12',
 				'phonenumber' => 'required|max:10',
 				'fullname' => 'required',
-                'email' => 'required',
-                'nrc' => 'required',
-                'province' => 'required',
-                'city' => 'required',
-                'town' => 'required',
-                'dob' => 'required'
+				'email' => 'required',
+				'nrc' => 'required',
+				'province' => 'required',
+				'city' => 'required',
+				'town' => 'required',
+				'dob' => 'required'
 			]);
-            if($validated){
-                $user = new User();
+			if ($validated) {
+				$user = new User();
 				$user->email = $request->input('email');
 				$user->password = Hash::make($request->input('password'));
 				$user->phonenumber = $request->input('phonenumber');
@@ -44,34 +46,33 @@ class AuthController extends Controller
 				$user->dob = $request->input('dob');
 				$user->save();
 
-                //create random string for remember token
+				//create random string for remember token
 				$token = Str::random(64);
 
-                //insert remember token to userverify table
+				//insert remember token to userverify table
 				UserVerify::create([
 					'user_id' => $user->id,
 					'token' => $token
 				]);
 
-                $userData = array('token' => $token, 'userData' => $user);
+				$userData = array('token' => $token, 'userData' => $user);
 
-                //send verify email to registered user
+				//send verify email to registered user
 				Mail::to($request->input('email'))->send(new VerifyEmail($userData));
 
-                return response()->json([
+				return response()->json([
 					'message' => 'New user has been addedd successfully!',
 					'data' => $userData
 				], 200);
-
-            } else {
+			} else {
 				return response()->json([
 					'message' => 'Error while adding user!',
 				], 500);
 			}
-        }
-    }
+		}
+	}
 
-    public function signin(Request $request)
+	public function signin(Request $request)
 	{
 		$validator = $request->validate([
 			'email' => 'required|email',
@@ -100,8 +101,9 @@ class AuthController extends Controller
 		}
 	}
 
-    public function logout(Request $request)
+	public function logout(Request $request)
 	{
+		Schema::drop('temp_adminLogin');
 
 		// Revoke the token that was used to authenticate the current request
 		$request->user()->currentAccessToken()->delete();
@@ -109,50 +111,49 @@ class AuthController extends Controller
 		return response()->json(null, 200);
 	}
 
-    public function sendPasswordResetLinkEmail(Request $request)
+	public function sendPasswordResetLinkEmail(Request $request)
 	{
 
 		$validated = $request->validate([
 			'email' => 'required|email|exists:users,email'
 		]);
 
-		if($validated){
+		if ($validated) {
 			$token = Str::random(64);
 
 			$passwordReset = new PasswordResets();
 			$passwordReset->email = $request->input('email');
 			$passwordReset->token = $token;
 			// $passwordReset->created_at = Carbon::now();
-	
+
 			$passwordReset->save();
-	
-	
+
+
 			$action_link = route('password.reset.form', ['token' => $token, 'email' => $request->email]);
 			$body = "We are received a request to reset the password for <b>Sankapo </b> account associated with " . $request->email . ". You can reset your password by clicking the link below";
-	
+
 			Mail::send('notifications.email-forgot', ['action_link' => $action_link, 'body' => $body], function ($message) use ($request) {
 				$message->from('noreply@example.com', 'Sankapo');
 				$message->to($request->email, 'Your name')
 					->subject('Reset Password');
 			});
-	
+
 			return response()->json([
 				'message' => 'We have emailed your password reset link, Please check your inbox!',
 			], 200);
-		}
-		else{
+		} else {
 			return response()->json([
 				'message' => 'Please check your email!',
 			], 500);
 		}
 	}
 
-    public function showResetForm(Request $request, $token = null)
+	public function showResetForm(Request $request, $token = null)
 	{
 		return view('resetPasswords.resetPassword')->with(['token' => $token, 'email' => $request->email]);
 	}
 
-    public function resetPassword(Request $request)
+	public function resetPassword(Request $request)
 	{
 
 		$request->validate([
@@ -183,9 +184,8 @@ class AuthController extends Controller
 		}
 	}
 
-    public function verifiedEmail(Request $request, $msg)
+	public function verifiedEmail(Request $request, $msg)
 	{
 		return view('verifyEmail.verifiedEmail')->with('msg', $msg);
 	}
-
 }
