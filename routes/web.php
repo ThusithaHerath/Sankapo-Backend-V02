@@ -18,7 +18,7 @@ Route::get('/view-product/{id}', [PageController::class, 'viewProduct']);
 Route::get('/approve-product/{id}', [ActionController::class, 'approveProduct']);
 Route::get('/decline-product/{id}', [ActionController::class, 'declineProduct']);
 //properties
-Route::get('/properties', [PageController::class, 'propertiesIndex']);
+Route::get('/properties', [PageController::class, 'propertiesIndex'])->middleware(['sessions', 'AdminAuth']);
 Route::get('/view-property/{id}', [PageController::class, 'viewProperty']);
 Route::get('/approve-property/{id}', [ActionController::class, 'approveProperty']);
 Route::get('/decline-property/{id}', [ActionController::class, 'declineProperty']);

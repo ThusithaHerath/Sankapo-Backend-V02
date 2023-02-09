@@ -24,12 +24,18 @@ class AdminAuth
         // dd(session()->all());
         $results  = Admin::find(Session::get('id'));
 
-        if ($results->token == '1' && $results->id == Session::get('id')) {
-            return $next($request);
-        } else {
+        if($results){
+            if ($results->token == '1' && $results->id == Session::get('id')) {
+                return $next($request);
+            } else {
+                return redirect(RouteServiceProvider::HOME);
+            }
+    
+        }else{
             return redirect(RouteServiceProvider::HOME);
         }
 
+       
         // return view('welcome',compact('admin'));
     }
 }
