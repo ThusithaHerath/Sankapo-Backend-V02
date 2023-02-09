@@ -43,6 +43,9 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'sessions' => [
+            \Illuminate\Session\Middleware\StartSession::class,
+        ],
     ];
 
     /**
@@ -65,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'IsVerifyEmail' => \App\Http\Middleware\IsVerifyEmail::class,
         'AdminAuth' => \App\Http\Middleware\AdminAuth::class,
+        'custom_auth' => \App\Http\Middleware\custom_auth::class,
     ];
 }

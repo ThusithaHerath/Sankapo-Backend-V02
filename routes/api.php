@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+	return $request->user();
 });
 
 //category
@@ -29,7 +29,7 @@ Route::prefix('category')->group(function () {
 });
 
 //product
-
+// Route::get('/products', [PageController::class, 'productsIndex'])->middleware('AdminAuth');
 Route::prefix('product')->group(function () {
 	Route::post('store', 'App\Http\Controllers\ProductsController@store')->name('product.store');
 	Route::get('showAll', 'App\Http\Controllers\ProductsController@showAll')->name('product.showAll');
@@ -78,13 +78,16 @@ Route::prefix('negotiation')->group(function () {
 });
 
 //admin 
+
 Route::prefix('admin')->group(function () {
 	Route::post('signup', 'App\Http\Controllers\AdminController@signup')->name('admin.signup');
-	Route::post('signin', 'App\Http\Controllers\AdminController@signin')->name('admin.signin');
+	Route::post('signin', 'App\Http\Controllers\AdminController@signin')->middleware('sessions')->name('admin.signin');
 	Route::get('showall', 'App\Http\Controllers\AdminController@showAll')->name('admin.showall');
 	Route::get('admin/{id}', 'App\Http\Controllers\AdminController@admin')->name('admin.admin');
 	Route::post('update/{id}', 'App\Http\Controllers\AdminController@update')->name('admin.update');
 	Route::delete('remove/{id}', 'App\Http\Controllers\AdminController@remove')->name('admin.remove');
+	Route::get('adminLogout', 'App\Http\Controllers\AuthController@adminLogout')->middleware('sessions')->name('admin.logout');
+	// Route::post('logout', 'App\Http\Controllers\AuthController@logout')->middleware('auth:sanctum')->name('admin.logout');
 });
 
 //user 
@@ -104,4 +107,3 @@ Route::prefix('user')->group(function () {
 	Route::get('account/verify/{token}')->middleware('IsVerifyEmail')->name('user.account.verify');
 	Route::get('account/verified/{msg}', 'App\Http\Controllers\AuthController@verifiedEmail')->name('account.verified');
 });
-

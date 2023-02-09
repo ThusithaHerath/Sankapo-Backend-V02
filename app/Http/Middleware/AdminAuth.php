@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AdminAuth
 {
@@ -20,9 +21,10 @@ class AdminAuth
     public function handle($request, Closure $next)
     {
 
-        $data = DB::table('temp_adminLogin')->get()->first();
+        // dd(session()->all());
+        $results  = Admin::find(Session::get('id'));
 
-        if ($data->token = '1') {
+        if ($results->token == '1' && $results->id == Session::get('id')) {
             return $next($request);
         } else {
             return redirect(RouteServiceProvider::HOME);

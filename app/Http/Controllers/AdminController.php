@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use App\Http\Controllers\PageController;
 
 class AdminController extends Controller
 {
@@ -55,27 +57,24 @@ class AdminController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+        // dd($request->session());
         $admin = Admin::where('email', $request->email)->first();
         $admin_id = $admin->id;
 
         if ($admin) {
             if (Hash::check($request->password, $admin->password)) {
-                $random_token = Str::random(64);
+
                 $data  = Admin::find($admin_id);
                 $data->token = '1';
                 $data->update();
-                //create temp table
-                Schema::create('temp_adminLogin', function (Blueprint $table) {
-                    $table->increments('id');
-                    $table->string('admin_id');
-                    $table->string('token');
-                    $table->temporary();
-                });
 
-                DB::table('temp_adminLogin')->insert(['admin_id' => $admin_id, 'token' => '1']);
-                //
-                return redirect()->away("http://127.0.0.1:8000/home");
+                // $request->session()->put('id', $admin_id);
+                // dd(session()->all());
+                // return redirect()->away("http://127.0.0.1:8000/home");
+                return redirect()->action(
+                    [PageController::class, 'home'],
+                    ['id' => $admin_id]
+                );
             } else {
                 return response()->json([
                     'message' => 'Incorrect Password!',

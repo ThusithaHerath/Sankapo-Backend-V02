@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Mail\VerifyEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use App\Models\UserVerify;
 use App\Models\PasswordResets;
@@ -101,9 +103,20 @@ class AuthController extends Controller
 		}
 	}
 
+	public function adminLogout(Request $request)
+	{
+		// dd(session()->all());
+		$data  = Admin::find(Session::get('id'));
+		// dd($request);
+		$data->token = '0';
+		$data->update();
+
+		Session::flush();
+		return redirect()->away("http://127.0.0.1:8000");
+		// return response()->json(null, 200);
+	}
 	public function logout(Request $request)
 	{
-		Schema::drop('temp_adminLogin');
 
 		// Revoke the token that was used to authenticate the current request
 		$request->user()->currentAccessToken()->delete();

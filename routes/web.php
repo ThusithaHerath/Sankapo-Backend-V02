@@ -3,16 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ActionController;
-
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('admin-template.auth.login');
 });
-Route::get('/home', [PageController::class, 'home']);
+Route::get('/home', [PageController::class, 'home'])->middleware('sessions')->name('home.home');
+Route::get('/adminLogout', [AuthController::class, 'adminLogout'])->middleware('sessions')->name('admin.logout');
 
 //ad manager
 //products
-Route::get('/products', [PageController::class, 'productsIndex'])->middleware('AdminAuth');
+Route::get('/products', [PageController::class, 'productsIndex'])->middleware(['sessions', 'AdminAuth']);
 Route::get('/view-product/{id}', [PageController::class, 'viewProduct']);
 Route::get('/approve-product/{id}', [ActionController::class, 'approveProduct']);
 Route::get('/decline-product/{id}', [ActionController::class, 'declineProduct']);
