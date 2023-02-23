@@ -15,7 +15,7 @@
 
                      <li class="sidebar-list">
                          <label class="badge badge-danger">2</label><a class="sidebar-link sidebar-title"
-                             href="#"><i class="fa fa-shopping-basket"> </i><span> Ad Manager</span></a>
+                             href="#"><i class="fa fa-shopping-baske me-md-2t"> </i><span> Ad Manager</span></a>
                          <ul class="sidebar-submenu">
                              <li><a href="{{ url('/products') }}">Products</a></li>
                              <li><a href="{{ url('/properties') }}">Properties</a></li>
@@ -23,18 +23,26 @@
                      </li>
                      <li class="sidebar-list">
                          <label class="badge badge-danger"></label><a class="sidebar-link sidebar-title"
-                             href="#"><i class="icofont icofont-chart-flow-alt-1"></i><span> Category
+                             href="#"><i class="icofont icofont-chart-flow-alt-1 me-md-2"></i><span> Category
                                  Manager</span></a>
                          <ul class="sidebar-submenu">
                              <li><a href="{{ url('/add-category') }}">Add new category </a></li>
                              <li><a href="{{ url('/categories') }}">Categories </a></li>
                          </ul>
                      </li>
-                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i
+                     <li class="sidebar-list">
+                        <label class="badge badge-danger"></label><a class="sidebar-link sidebar-title"
+                            href="#"><i class="icofont icofont-billboard me-md-2"></i></i><span>Manage Banner</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ url('/add-banner') }}">Add new banner </a></li>
+                            <li><a href="{{ url('/banners') }}">Banners </a></li>
+                        </ul>
+                    </li>
+                     {{-- <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i
                                  data-feather="shopping-bag"></i><span>Auction Manager</span></a>
                          <ul class="sidebar-submenu">
                          </ul>
-                     </li>
+                     </li> --}}
                      <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i
                                  data-feather="users"></i><span>Users</span></a>
                          <ul class="sidebar-submenu">

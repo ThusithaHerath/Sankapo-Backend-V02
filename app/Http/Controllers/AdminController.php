@@ -59,11 +59,11 @@ class AdminController extends Controller
         ]);
         // dd($request->session());
         $admin = Admin::where('email', $request->email)->first();
-        $admin_id = $admin->id;
+        
 
         if ($admin) {
             if (Hash::check($request->password, $admin->password)) {
-
+                $admin_id = $admin->id;
                 $data  = Admin::find($admin_id);
                 $data->token = '1';
                 $data->update();
@@ -76,15 +76,10 @@ class AdminController extends Controller
                     ['id' => $admin_id]
                 );
             } else {
-                return response()->json([
-                    'message' => 'Incorrect Password!',
-                ], 403);
+                return redirect()->back()->with('IncorrectP','Incorrect password!');
             }
         } else {
-            return response()->json([
-                'user' => $admin,
-                'message' => 'Admin not found!',
-            ], 401);
+            return redirect()->back()->with('NotFound','Admin not found!');
         }
     }
 

@@ -201,6 +201,13 @@ class ProductsController extends Controller
             'message' => 'Search by category and title data fetched successfully!',
         ], 200);
     }
+    public function myProductList($id){
+        $results = DB::table('products')->where('owner', $id)->get();
+        return response()->json([
+            'data' => $results,
+            'message' => 'My product list fetched successfully!',
+        ], 200);
+    }
 
 
 }

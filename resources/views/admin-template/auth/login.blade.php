@@ -33,12 +33,19 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
   </head>
   <body>
+    @if(session('IncorrectP'))
+    <h5 class="alert alert-success">{{session('IncorrectP')}}</h5>
+    @endif
+    @if(session('NotFound'))
+    <h5 class="alert alert-success">{{session('NotFound')}}</h5>
+    @endif
     <!-- login page start-->
     <div class="container-fluid p-0">
       <div class="row m-0">
         <div class="col-12 p-0">    
           <div class="login-card">
             <div>
+        
               <div><a class="logo" href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo-sankapo.png" alt="looginpage"><img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png" alt="looginpage"></a></div>
               <div class="login-main"> 
                 <form class="theme-form" method="POST" action="{{url('http://127.0.0.1:8000/api/admin/signin')}}">

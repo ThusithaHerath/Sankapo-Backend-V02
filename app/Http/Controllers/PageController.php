@@ -7,6 +7,7 @@ use App\Models\Property;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -91,5 +92,13 @@ class PageController extends Controller
     public function addAdmin()
     {
         return view('admin-template.admin-users.add');
+    }
+
+    public function addBanner(){
+        return view('admin-template.banner.add-banner');
+    }
+    public function banners(){
+        $data = Banner::all();
+        return view('admin-template.banner.banners',compact('data'));
     }
 }

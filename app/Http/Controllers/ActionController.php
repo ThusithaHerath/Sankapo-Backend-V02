@@ -7,6 +7,7 @@ use App\Models\Products;
 use App\Models\Property;
 use App\Models\Category;
 use App\Models\Admin;
+use App\Models\Banner;
 use Hash;
 
 class ActionController extends Controller
@@ -101,5 +102,36 @@ class ActionController extends Controller
         }
     }
 
+    public function approved()
+    {
+        //status = 0 newly added ads
+        //status = 1 approved ads
+        //status = 2 declined ads
+        $Banner = Banner::where('status', '1')->get()->all();
+        if ($Banner) {
+            return response()->json([
+                'data' => $Banner,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => "Can't find approved adds",
+            ], 500);
+        }
+    }
+
+    public function approveBanner(Request $request, $id)
+    {
+        if (Banner::where('id', $id)->exists()) {
+            $Banner  = Banner::find($id);
+            $Banner->status = '1';
+            $Banner->update();
+
+            return redirect()->back();
+        } else {
+            return response()->json([
+                'message' => 'There is no record for this id',
+            ], 500);
+        }
+    }
 
 }

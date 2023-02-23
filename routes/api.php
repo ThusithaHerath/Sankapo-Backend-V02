@@ -28,6 +28,11 @@ Route::prefix('category')->group(function () {
 	// Route::delete('delete/{id}', 'App\Http\Controllers\CategoryController@destroy')->name('category.delete');
 });
 
+Route::prefix('banner')->group(function () {
+	Route::post('store', 'App\Http\Controllers\BannerController@store')->name('banner.store');
+
+});
+
 //product
 // Route::get('/products', [PageController::class, 'productsIndex'])->middleware('AdminAuth');
 Route::prefix('product')->group(function () {
@@ -106,4 +111,6 @@ Route::prefix('user')->group(function () {
 
 	Route::get('account/verify/{token}')->middleware('IsVerifyEmail')->name('user.account.verify');
 	Route::get('account/verified/{msg}', 'App\Http\Controllers\AuthController@verifiedEmail')->name('account.verified');
+	Route::get('myProductList/{id}','App\Http\Controllers\ProductsController@myProductList')->name('user.myProductList');
+	Route::get('myPropertyList/{id}','App\Http\Controllers\PropertyController@myPropertyList')->name('user.myPropertyList');
 });

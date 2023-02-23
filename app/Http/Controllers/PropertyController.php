@@ -262,4 +262,11 @@ class PropertyController extends Controller
             ], 500);
         }
     }
+    public function myPropertyList($id){
+        $results = DB::table('properties')->where('id', $id)->get();
+        return response()->json([
+            'data' => $results,
+            'message' => 'My property list fetched successfully!',
+        ], 200);
+    }
 }
